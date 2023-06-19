@@ -2,7 +2,6 @@ package com.example.assignment02;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -26,9 +25,9 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String Class="std_class";
 
 
-    public DBHandler(@Nullable Context context, Context context1) {
+    public DBHandler(@Nullable Context context) {
         super(context, DBName, null, DBVersion);
-        this.context = context1;
+        this.context = context;
     }
 
 
@@ -53,7 +52,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void AddStudent(String name,String age,String cls){
+    public void AddStudents(String name,String age,String cls){
         SQLiteDatabase db= this.getWritableDatabase();//so we can add the values in the data
         ContentValues cv=new ContentValues();
         cv.put(Name,name);
