@@ -2,7 +2,15 @@ package com.example.assignment02;
 
 public class Model {
 
-    String name,age,clss;
+    String name,age,clss,rollNum;
+
+    public String getRollNum() {
+        return rollNum;
+    }
+
+    public void setRollNum(String rollNum) {
+        this.rollNum = rollNum;
+    }
 
     public String getName() {
         return name;

@@ -40,11 +40,22 @@
 
     <Button
         android:id="@+id/addstd"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="28dp"
         android:text="Add Students"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/recycleview"
         app:layout_constraintStart_toStartOf="@id/recycleview" />
+
+    <Button
+        android:id="@+id/addTask"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginEnd="32dp"
+        android:text="Add Daisy Tasks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addstd"
+        tools:layout_editor_absoluteY="526dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

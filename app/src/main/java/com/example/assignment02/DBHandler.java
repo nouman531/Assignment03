@@ -20,10 +20,19 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final int DBVersion=1;
     private static final String Table_Name="My_Table";
 
-    //private static final String ID="id";
+    private static final String RollNum="std_roll";
     private static final String Name="std_name";
     private static final String Age="std_age";
-    private static final String StdClass="std_class";
+    private static final String Class="std_class";
+
+
+
+
+    private static final String Table_Name_Tasks="My_Table_task";
+    private static final String Sabaq = "sabaq";
+    private static final String Sabaqi = "sabaqi";
+    private static final String Manzil = "manzil";
+    private static final String RollNumFK = "rollno_fk";
 
 
     public DBHandler(@Nullable Context context) {
@@ -31,14 +40,26 @@ public class DBHandler extends SQLiteOpenHelper {
         this.context = context;
     }
 
+
+
+
     @Override
     public void onCreate(@NonNull SQLiteDatabase db) {
         String query="CREATE TABLE "+ Table_Name +
-                "(" + "id" + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "(" + RollNum + " TEXT PRIMARY KEY, "+
                 Name + " TEXT, " +
                 Age + " TEXT, " +
-                StdClass + " TEXT);";
+                Class + " TEXT);";
         db.execSQL(query);
+
+        String tasksTableQuery = "CREATE TABLE " + Table_Name_Tasks +
+                "(" + "TaskID" + " String PRIMARY KEY , " +
+                Sabaq + " TEXT, " +
+                Sabaqi + " TEXT, " +
+                Manzil + " TEXT, " +
+                RollNumFK + " TEXT, " +
+                "FOREIGN KEY(" + RollNumFK + ") REFERENCES " + Table_Name + "(" + RollNum + "));";
+        db.execSQL(tasksTableQuery);
 
     }
 
@@ -55,7 +76,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues cv=new ContentValues();
         cv.put(Name,name);
         cv.put(Age,age);
-        cv.put(StdClass,cls);
+        cv.put(Class,cls);
 
         long result=db.insert(Table_Name,null,cv);
 
@@ -67,6 +88,27 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
 
     }
+
+    public void AddTasks(String rollNum,String sabaq,String sabaqi,String manzil){
+        SQLiteDatabase db= this.getWritableDatabase();//so we can add the values in the data
+        ContentValues cv=new ContentValues();
+        cv.put(RollNumFK,rollNum);
+        cv.put(Sabaq,sabaq);
+        cv.put(Sabaqi,sabaqi);
+        cv.put(Manzil,manzil);
+
+        long task_result=db.insert(Table_Name_Tasks,null,cv);
+
+        if(task_result==-1){
+            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+
+    }
+
+
     Cursor readAllData(){
         String query="SELECT * FROM " + Table_Name;
         SQLiteDatabase db=this.getReadableDatabase();

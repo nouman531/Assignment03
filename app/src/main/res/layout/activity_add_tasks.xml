@@ -7,25 +7,12 @@
     tools:context=".AddStudent">
 
     <EditText
-        android:id="@+id/std_name"
+        android:id="@+id/std_roll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="108dp"
         android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rollNum" />
-
-    <EditText
-        android:id="@+id/rollNum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:hint="Enter Roll number"
+        android:hint="Enter Roll Number"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -33,30 +20,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/std_age"
+        android:id="@+id/std_sabaq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:ems="10"
-        android:hint="Age"
+        android:hint="Enter Sabaq"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/std_name" />
+        app:layout_constraintTop_toBottomOf="@+id/std_roll" />
 
     <EditText
-        android:id="@+id/std_class"
+        android:id="@+id/std_sabaqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:ems="10"
+        android:hint="Enter Sabaqi"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/std_sabaq" />
+
+    <EditText
+        android:id="@+id/std_manzil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Class"
+        android:hint="Enter Manzil"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/std_age"
+        app:layout_constraintTop_toBottomOf="@+id/std_sabaqi"
         app:layout_constraintVertical_bias="0.129" />
 
     <Button
@@ -68,5 +68,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/std_class" />
+        app:layout_constraintTop_toBottomOf="@+id/std_manzil" />
 </androidx.constraintlayout.widget.ConstraintLayout>

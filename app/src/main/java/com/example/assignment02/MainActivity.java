@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     EditText editText;
-    Button searchBtn, addBtn;
+    Button searchBtn, addBtn,addTask;
 
     DBHandler dbHandler;
 
@@ -34,12 +34,20 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.search);
         searchBtn = findViewById(R.id.button);
         addBtn = findViewById(R.id.addstd);
+        addTask=findViewById(R.id.addTask);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddStudent.class);
                 startActivity(intent);
+            }
+        });
+
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.assignment02;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.std_name.setText(data.get(position).getName());
         holder.std_age.setText(data.get(position).getAge());
         holder.std_class.setText(data.get(position).getClss());
@@ -42,7 +43,7 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
             @Override
             public void onClick(View v) {
                 // Launch the new activity here
-                Intent intent = new Intent(context, NextActivity.class);
+                Intent intent = new Intent(context, SabaqActivity.class);
                 intent.putExtra("name", data.get(position).getName());
                 intent.putExtra("age", data.get(position).getAge());
                 intent.putExtra("class", data.get(position).getClss());
