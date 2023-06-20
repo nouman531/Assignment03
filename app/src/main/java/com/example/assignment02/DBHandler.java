@@ -20,10 +20,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final int DBVersion=1;
     private static final String Table_Name="My_Table";
 
-    private static final String ID="id";
+    //private static final String ID="id";
     private static final String Name="std_name";
     private static final String Age="std_age";
-    private static final String Class="std_class";
+    private static final String StdClass="std_class";
 
 
     public DBHandler(@Nullable Context context) {
@@ -34,10 +34,10 @@ public class DBHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(@NonNull SQLiteDatabase db) {
         String query="CREATE TABLE "+ Table_Name +
-                "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                "(" + "id" + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
                 Name + " TEXT, " +
                 Age + " TEXT, " +
-                Class + " TEXT);";
+                StdClass + " TEXT);";
         db.execSQL(query);
 
     }
@@ -55,7 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues cv=new ContentValues();
         cv.put(Name,name);
         cv.put(Age,age);
-        cv.put(Class,cls);
+        cv.put(StdClass,cls);
 
         long result=db.insert(Table_Name,null,cv);
 
