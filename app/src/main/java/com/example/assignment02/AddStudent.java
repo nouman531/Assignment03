@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 public class AddStudent extends AppCompatActivity {
 
-    EditText name,age,cls;
+    EditText rollnum,name,age,cls;
     Button btn;
 
     @Override
@@ -21,6 +21,7 @@ public class AddStudent extends AppCompatActivity {
         name=findViewById(R.id.std_name);
         age=findViewById(R.id.std_age);
         cls=findViewById(R.id.std_class);
+        rollnum=findViewById(R.id.rollNum);
 
         btn=findViewById(R.id.button);
 
@@ -31,9 +32,11 @@ public class AddStudent extends AppCompatActivity {
                 try{
 
                     DBHandler db=new DBHandler(AddStudent.this);
-                    db.AddStudents(name.getText().toString(),
+                    db.AddStudents(rollnum.getText().toString(),
+                            name.getText().toString(),
                             age.getText().toString(),
                             cls.getText().toString());
+                    rollnum.setText("");
                     name.setText("");
                     age.setText("");
                     cls.setText("");

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,29 +14,49 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.assignment02.AddStudent;
+import com.example.assignment02.AddTasks;
+import com.example.assignment02.DBHandler;
+import com.example.assignment02.Model;
+import com.example.assignment02.MyAdapterClass;
+import com.example.assignment02.R;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     EditText editText;
-    Button searchBtn, addBtn,addTask;
+    Button searchBtn, addBtn, addTaskButton;
 
     DBHandler dbHandler;
+    private Context context;
 
     private ArrayList<Model> dataholder;
-    MyAdapterClass adapter;
+
+
+    private MyAdapterClass adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = MainActivity.this;
+
         recyclerView = findViewById(R.id.recycleview);
         editText = findViewById(R.id.search);
         searchBtn = findViewById(R.id.button);
         addBtn = findViewById(R.id.addstd);
-        addTask=findViewById(R.id.addTask);
+        addTaskButton = findViewById(R.id.addTask);
+
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddTasks.class);
+                startActivity(intent);
+            }
+        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,33 +66,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        addTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         dbHandler = new DBHandler(MainActivity.this);
 
-        dataholder = new ArrayList<Model>(); // Initialize the dataholder ArrayList
+        dataholder = new ArrayList<Model>();
+        adapter = new MyAdapterClass(context, dataholder);
 
-        StoreDataInArrays();
-        adapter = new MyAdapterClass(MainActivity.this,dataholder);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+
+
+        loadData();
     }
 
-    void StoreDataInArrays() {
+    private void loadData() {
         Cursor cursor = dbHandler.readAllData();
         if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No Data yet", Toast.LENGTH_SHORT).show();
         } else {
             while (cursor.moveToNext()) {
-                Model obj = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3));
-                dataholder.add(obj);
-            }
-        }
-    }
-}
+                @SuppressLint("Range") String rollNum = cursor.getString(cursor.getColumnIndex("std_roll"));
+                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("std_name"));
+                @SuppressLint("Range") String age = cursor.getString(cursor.getColumnIndex("std_age"));
+                @SuppressLint("Range") String stdClass = cursor.getString(cursor.getColumnIndex("std_class"));
 
+                Model model = new Model(rollNum, name, age, stdClass);
+                dataholder.add(model);
+            }
+            adapter.notifyDataSetChanged();
+        }
+        cursor.close();
+    }
+
+
+
+}

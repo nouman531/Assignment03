@@ -15,12 +15,12 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/displayids"
+            android:id="@+id/displayRollNum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:textStyle="bold"
-            android:text="ID"
+            android:text="Roll Number"
             android:textColor="@color/white"
             android:gravity="center_horizontal" />
 
@@ -31,7 +31,7 @@
             android:textSize="25sp"
             android:textStyle="bold"
             android:text="Name"
-            android:textColor="@color/white"
+            android:textColor="@color/design_default_color_background"
             android:gravity="center_horizontal" />
 
         <TextView

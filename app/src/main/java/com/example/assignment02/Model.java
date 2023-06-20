@@ -36,8 +36,10 @@ public class Model {
         this.clss = clss;
     }
 
-    public Model(String name, String age, String clss) {
+    public Model(String rollNum,String name, String age, String clss) {
+        this.rollNum=rollNum;
         this.name = name;
+
         this.age = age;
         this.clss = clss;
     }

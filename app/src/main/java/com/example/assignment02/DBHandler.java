@@ -23,7 +23,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String RollNum="std_roll";
     private static final String Name="std_name";
     private static final String Age="std_age";
-    private static final String Class="std_class";
+    private static final String StdClass="std_class";
 
 
 
@@ -49,17 +49,18 @@ public class DBHandler extends SQLiteOpenHelper {
                 "(" + RollNum + " TEXT PRIMARY KEY, "+
                 Name + " TEXT, " +
                 Age + " TEXT, " +
-                Class + " TEXT);";
+                StdClass + " TEXT);";
         db.execSQL(query);
 
         String tasksTableQuery = "CREATE TABLE " + Table_Name_Tasks +
-                "(" + "TaskID" + " String PRIMARY KEY , " +
+                "(" + RollNum + " TEXT, " +
                 Sabaq + " TEXT, " +
                 Sabaqi + " TEXT, " +
                 Manzil + " TEXT, " +
-                RollNumFK + " TEXT, " +
-                "FOREIGN KEY(" + RollNumFK + ") REFERENCES " + Table_Name + "(" + RollNum + "));";
+                "FOREIGN KEY(" + RollNum + ") REFERENCES " + Table_Name + "(" + RollNum + "));";
         db.execSQL(tasksTableQuery);
+
+
 
     }
 
@@ -71,25 +72,30 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void AddStudents(String name,String age,String cls){
-        SQLiteDatabase db= this.getWritableDatabase();//so we can add the values in the data
-        ContentValues cv=new ContentValues();
-        cv.put(Name,name);
-        cv.put(Age,age);
-        cv.put(Class,cls);
+    public void AddStudents(String rollnum, String name, String age, String cls) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(RollNum, rollnum);
+        cv.put(Name, name);
+        cv.put(Age, age);
+        cv.put(StdClass, cls);
 
-        long result=db.insert(Table_Name,null,cv);
+        long result = db.insert(Table_Name, null, cv);
 
-        if(result==-1){
-            Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
-        }else {
-            Toast.makeText(context,"Success",Toast.LENGTH_SHORT).show();
+        if (result == -1) {
+            if (context != null) {
+                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            if (context != null) {
+                Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+            }
         }
         db.close();
-
     }
 
-    public void AddTasks(String rollNum,String sabaq,String sabaqi,String manzil){
+
+    public void AddTask(String rollNum,String sabaq,String sabaqi,String manzil){
         SQLiteDatabase db= this.getWritableDatabase();//so we can add the values in the data
         ContentValues cv=new ContentValues();
         cv.put(RollNumFK,rollNum);
@@ -109,14 +115,26 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    Cursor readAllData(){
+    public Cursor readAllData(){
         String query="SELECT * FROM " + Table_Name;
         SQLiteDatabase db=this.getReadableDatabase();
 
-        Cursor cursor=null;
-        if(db!=null){
-            cursor=db.rawQuery(query,null);
-        }
+        Cursor cursor = null;
+        if(db!=null) cursor = db.rawQuery(query, null);
         return cursor;
     }
+
+
+    public Cursor getDataByRollNum(String rollNum) {
+        String query = "SELECT * FROM " + Table_Name_Tasks + " WHERE " + RollNumFK + " = '" + rollNum + "'";
+
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db!=null) cursor = db.rawQuery(query, null);
+        return cursor;
+
+    }
+
+
 }

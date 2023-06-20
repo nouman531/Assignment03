@@ -21,6 +21,8 @@ public class AddTasks extends AppCompatActivity {
         sabaqi=findViewById(R.id.std_sabaqi);
         manzil=findViewById(R.id.std_manzil);
 
+        button=findViewById(R.id.button);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,7 +30,7 @@ public class AddTasks extends AppCompatActivity {
                 try{
 
                     DBHandler db=new DBHandler(AddTasks.this);
-                    db.AddTasks(rollNum.getText().toString(),
+                    db.AddTask(rollNum.getText().toString(),
                             sabaq.getText().toString(),
                             sabaqi.getText().toString(),
                             manzil.getText().toString());

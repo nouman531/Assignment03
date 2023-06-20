@@ -19,7 +19,7 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
     private Context context;
     ArrayList<Model> data;
 
-    public MyAdapterClass(Context context,ArrayList<Model> data) {
+    public MyAdapterClass(Context context, ArrayList<Model> data) {
         this.context=context;
         this.data = data;
     }
@@ -35,6 +35,7 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+       holder.std_rollnum.setText(data.get(position).getRollNum());
         holder.std_name.setText(data.get(position).getName());
         holder.std_age.setText(data.get(position).getAge());
         holder.std_class.setText(data.get(position).getClss());
@@ -44,9 +45,10 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
             public void onClick(View v) {
                 // Launch the new activity here
                 Intent intent = new Intent(context, SabaqActivity.class);
+                intent.putExtra("rollnum",data.get(position).getRollNum());
                 intent.putExtra("name", data.get(position).getName());
                 intent.putExtra("age", data.get(position).getAge());
-                intent.putExtra("class", data.get(position).getClss());
+                intent.putExtra("stdclass", data.get(position).getClss());
                 context.startActivity(intent);
             }
         });
@@ -60,9 +62,10 @@ public class MyAdapterClass extends Adapter<MyAdapterClass.MyViewHolder> {
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView  std_name, std_age, std_class;
+        TextView  std_rollnum,std_name, std_age, std_class;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+           std_rollnum=itemView.findViewById(R.id.displayRollNum);
             std_name=itemView.findViewById(R.id.displayname);
             std_age=itemView.findViewById(R.id.displayage);
             std_class=itemView.findViewById(R.id.displayclass);
