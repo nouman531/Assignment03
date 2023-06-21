@@ -22,12 +22,14 @@ import com.example.assignment02.MyAdapterClass;
 import com.example.assignment02.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     EditText editText;
     Button searchBtn, addBtn, addTaskButton;
+    List<Model> filteredStudentList;
 
     DBHandler dbHandler;
     private Context context;
@@ -49,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
         searchBtn = findViewById(R.id.button);
         addBtn = findViewById(R.id.addstd);
         addTaskButton = findViewById(R.id.addTask);
+
+        //String query=editText.getText().toString();
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = editText.getText().toString();
+                filterStudentList(query, dataholder);
+            }
+        });
+
 
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +111,26 @@ public class MainActivity extends AppCompatActivity {
         cursor.close();
     }
 
+    private void filterStudentList(String query, List<Model> studentList) {
+        filteredStudentList = new ArrayList<>();
+
+        if (query.isEmpty()) {
+            filteredStudentList = (List<Model>) dbHandler.readAllData();
+        } else {
+            query = query.toLowerCase();
+            for (Model student : studentList) {
+                if (student.getName().toLowerCase().contains(query)) {
+                    filteredStudentList.add(student);
+                }
+            }
+            LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+            adapter = new MyAdapterClass((Context) MainActivity.this, (ArrayList<Model>) filteredStudentList);
+            recyclerView.setAdapter(adapter);
+        }
+        adapter.notifyDataSetChanged();
+    }
 
 
 }
