@@ -11,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 
-
-
 public class DBHandler extends SQLiteOpenHelper {
 
     private final Context context;
@@ -29,10 +27,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     private static final String Table_Name_Tasks="My_Table_task";
+    private static final String RollNumFK = "rollno_fk";
     private static final String Sabaq = "sabaq";
     private static final String Sabaqi = "sabaqi";
     private static final String Manzil = "manzil";
-    private static final String RollNumFK = "rollno_fk";
+
 
 
     public DBHandler(@Nullable Context context) {
@@ -52,12 +51,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 StdClass + " TEXT);";
         db.execSQL(query);
 
-        String tasksTableQuery = "CREATE TABLE " + Table_Name_Tasks +
-                "(" + RollNum + " TEXT, " +
+        String tasksTableQuery="CREATE TABLE "+ Table_Name_Tasks +
+                "(" + RollNumFK + " TEXT PRIMARY KEY, "+
                 Sabaq + " TEXT, " +
                 Sabaqi + " TEXT, " +
-                Manzil + " TEXT, " +
-                "FOREIGN KEY(" + RollNum + ") REFERENCES " + Table_Name + "(" + RollNum + "));";
+                Manzil + " TEXT);";
         db.execSQL(tasksTableQuery);
 
 
