@@ -1,5 +1,6 @@
 package com.example.assignment02;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -133,6 +134,8 @@ public class DBHandler extends SQLiteOpenHelper {
         return cursor;
 
     }
+
+
 
 
 }

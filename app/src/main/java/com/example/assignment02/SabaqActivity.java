@@ -3,6 +3,7 @@ package com.example.assignment02;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class SabaqActivity extends AppCompatActivity {
+    Context context;
 
     private DBHandler dbHandler;
     private TextView rollnum;
@@ -21,11 +23,11 @@ public class SabaqActivity extends AppCompatActivity {
     private TextView stdclass;
     private TextView name;
 
-    private Button doneBtn;
-    private Button repeatBtn;
-    private Button updateBtn;
+    private Button doneBtn,repeatBtn,updateBtn;
 
-    private String stdSabaqValue;
+
+    private String stdSabaqValue,stdSabaqiValue,stdManzilValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +74,11 @@ public class SabaqActivity extends AppCompatActivity {
             sabaqi.setText("Sabaqi : " + stdSabaqi);
             manzil.setText("Manzil : " + stdManzil);
 
-            // Store the value of stdSabaq
+
+
             stdSabaqValue = stdSabaq;
+            stdSabaqiValue = stdSabaqi;
+            stdManzilValue = stdManzil;
 
             cursor.close();
         } else {
@@ -84,11 +89,31 @@ public class SabaqActivity extends AppCompatActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (stdSabaqValue != null) {
-                    Toast.makeText(SabaqActivity.this, "Sabaq Value: " + stdSabaqValue, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(SabaqActivity.this, "Sabaq Value not available", Toast.LENGTH_SHORT).show();
-                }
+                int newSabaq=Integer.parseInt(stdSabaqValue)+1;
+                int newSabaqi=Integer.parseInt(stdSabaqiValue)+1;
+                int newMazil=Integer.parseInt(stdManzilValue)+1;
+
+                sabaq.setText("Sabaq : " + newSabaq);
+                sabaqi.setText("Sabaqi : " + newSabaqi);
+                manzil.setText("Manzil : " + newMazil);
+
+
+
+            }
+        });
+
+        repeatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Repeat the task for tomorrow", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(SabaqActivity.this,updateActivity.class);
+                startActivity(intent);
             }
         });
     }
