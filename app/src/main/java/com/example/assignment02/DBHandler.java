@@ -11,6 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -32,6 +36,16 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String Sabaq = "sabaq";
     private static final String Sabaqi = "sabaqi";
     private static final String Manzil = "manzil";
+
+    ///////////////////For storing data
+    private static final String History_Table="Std_History";
+    private static final String KEY_ID = "id";
+    private static final String KEY_ROLL_NUM = "roll_number";
+    private static final String KEY_SABAQ = "sabaq";
+    private static final String KEY_SABAQI = "sabaqi";
+    private static final String KEY_MANZIL = "manzil";
+    private static final String KEY_TIMESTAMP = "timestamp";
+
 
 
 
@@ -59,14 +73,26 @@ public class DBHandler extends SQLiteOpenHelper {
                 Manzil + " TEXT);";
         db.execSQL(tasksTableQuery);
 
+        String createHistoryTableQuery = "CREATE TABLE " + History_Table + "("
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + KEY_ROLL_NUM + " TEXT,"
+                + KEY_SABAQ + " TEXT,"
+                + KEY_SABAQI + " TEXT,"
+                + KEY_MANZIL + " TEXT,"
+                + KEY_TIMESTAMP + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+        db.execSQL(createHistoryTableQuery);
 
 
     }
 
     @Override
     public void onUpgrade(@NonNull SQLiteDatabase db, int i, int i1) {
-        String query="DROP TABLE IF EXISTS "+ Table_Name;
-        db.execSQL(query);
+        String query1="DROP TABLE IF EXISTS "+ Table_Name;
+        String query2="DROP TABLE IF EXISTS "+ Table_Name_Tasks;
+        String query3="DROP TABLE IF EXISTS "+ History_Table;
+        db.execSQL(query1);
+        db.execSQL(query2);
+        db.execSQL(query3);
         onCreate(db);
 
     }
@@ -114,6 +140,8 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
+
+
     public Cursor readAllData(){
         String query="SELECT * FROM " + Table_Name;
         SQLiteDatabase db=this.getReadableDatabase();
@@ -135,7 +163,39 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+    public void updateDataAndSaveHistorical(String rollNum, String newsabaq,String newSabaqi, String newManzil) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        // Update the data in the main table
+        ContentValues values = new ContentValues();
+        values.put(Sabaq,newsabaq);
+        values.put(Sabaqi, newSabaqi);
+        values.put(Manzil, newManzil);
+        db.update(Table_Name_Tasks, values, RollNumFK + " = ?", new String[]{rollNum});
+
+        // Save the previous data as a historical record
+        ContentValues historicalValues = new ContentValues();
+        historicalValues.put(KEY_ROLL_NUM, rollNum);
+        historicalValues.put(KEY_SABAQ, newsabaq);
+        historicalValues.put(KEY_SABAQI, newSabaqi);
+        historicalValues.put(KEY_MANZIL, newManzil);
+        historicalValues.put(KEY_TIMESTAMP, getCurrentTimestamp());
+        db.insert(History_Table, null, historicalValues);
+
+        db.close();
+    }
+
+    // Method to get the current timestamp
+    private String getCurrentTimestamp() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return sdf.format(new Date());
+    }
 
 
 }
+
+
+
+
+
+

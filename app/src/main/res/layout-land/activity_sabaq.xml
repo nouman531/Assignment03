@@ -21,12 +21,12 @@
         android:id="@+id/cls"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="444dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/rollnumber"
@@ -37,38 +37,48 @@
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cls" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
         android:id="@+id/sabaq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="444dp"
+        android:layout_marginTop="61dp"
+        android:text="TextView"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cls" />
+
+    <TextView
+        android:id="@+id/sabaqi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="46dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rollnumber" />
 
     <TextView
-        android:id="@+id/sabaqi"
+        android:id="@+id/manzil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginStart="452dp"
+        android:layout_marginTop="35dp"
         android:text="TextView"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sabaq" />
 
-    <TextView
-        android:id="@+id/manzil"
+    <Button
+        android:id="@+id/donebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="50dp"
-        android:text="TextView"
-        android:textSize="24sp"
+        android:layout_marginTop="32dp"
+        android:text="Done"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sabaqi" />
 
@@ -76,10 +86,10 @@
         android:id="@+id/viewRecordsbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="474dp"
-        android:text="All Records"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="248dp"
+        android:text="Repeat"
+        app:layout_constraintStart_toEndOf="@+id/donebtn"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -87,10 +97,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="472dp"
+        android:layout_marginTop="252dp"
         android:layout_marginEnd="30dp"
-        android:text="update record"
+        android:text="update"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toEndOf="@+id/viewRecordsbtn"
         app:layout_constraintTop_toTopOf="parent" />
 

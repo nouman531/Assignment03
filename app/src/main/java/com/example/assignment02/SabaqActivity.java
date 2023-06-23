@@ -23,10 +23,10 @@ public class SabaqActivity extends AppCompatActivity {
     private TextView stdclass;
     private TextView name;
 
-    private Button doneBtn,repeatBtn,updateBtn;
+    private Button viewRecordsbtn,updateBtn;
 
 
-    private String stdSabaqValue,stdSabaqiValue,stdManzilValue;
+    private String stdRollnumber,stdSabaqValue,stdSabaqiValue,stdManzilValue;
 
 
     @Override
@@ -42,8 +42,8 @@ public class SabaqActivity extends AppCompatActivity {
         stdclass = findViewById(R.id.cls);
         name = findViewById(R.id.name);
 
-        doneBtn = findViewById(R.id.donebtn);
-        repeatBtn = findViewById(R.id.repeatbtn);
+
+        viewRecordsbtn = findViewById(R.id.viewRecordsbtn);
         updateBtn = findViewById(R.id.updatebtn);
 
         // Create a DBHandler instance
@@ -75,7 +75,7 @@ public class SabaqActivity extends AppCompatActivity {
             manzil.setText("Manzil : " + stdManzil);
 
 
-
+            stdRollnumber=stdrollNum;
             stdSabaqValue = stdSabaq;
             stdSabaqiValue = stdSabaqi;
             stdManzilValue = stdManzil;
@@ -86,26 +86,16 @@ public class SabaqActivity extends AppCompatActivity {
             Toast.makeText(this, "No data found for Roll Number: " + rollNum, Toast.LENGTH_SHORT).show();
         }
 
-        doneBtn.setOnClickListener(new View.OnClickListener() {
+
+
+        viewRecordsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int newSabaq=Integer.parseInt(stdSabaqValue)+1;
-                int newSabaqi=Integer.parseInt(stdSabaqiValue)+1;
-                int newMazil=Integer.parseInt(stdManzilValue)+1;
 
-                sabaq.setText("Sabaq : " + newSabaq);
-                sabaqi.setText("Sabaqi : " + newSabaqi);
-                manzil.setText("Manzil : " + newMazil);
+                Intent intent= new Intent(SabaqActivity.this,updateActivity.class);
+                intent.putExtra("rollnum",stdRollnumber);
+                startActivity(intent);
 
-
-
-            }
-        });
-
-        repeatBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Repeat the task for tomorrow", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,6 +103,7 @@ public class SabaqActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(SabaqActivity.this,updateActivity.class);
+                intent.putExtra("rollnum",stdRollnumber);
                 startActivity(intent);
             }
         });
